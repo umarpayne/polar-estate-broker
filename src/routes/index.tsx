@@ -170,13 +170,13 @@ function Home() {
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <a
-                  href="#contact"
+                  href="/contact"
                   className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-[var(--shadow-elevated)] transition-colors hover:bg-primary"
                 >
                   Book Consultation <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
-                  href="#services"
+                  href="/services"
                   className="inline-flex items-center rounded-lg border border-ink-foreground/25 px-6 py-3.5 text-sm font-semibold text-ink-foreground transition-colors hover:bg-ink-foreground/10"
                 >
                   Explore Services
@@ -242,7 +242,7 @@ function Home() {
                 financial reporting.
               </p>
               <a
-                href="#services"
+                href="/services"
                 className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand hover:text-primary"
               >
                 See what we handle <ArrowRight className="h-4 w-4" />
@@ -285,7 +285,7 @@ function Home() {
                       {service.copy}
                     </p>
                     <a
-                      href="#contact"
+                      href="/contact"
                       className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand"
                     >
                       Learn More <ArrowRight className="h-4 w-4" />
@@ -308,7 +308,7 @@ function Home() {
                 </h2>
               </div>
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-brand"
               >
                 View Full Portfolio <ArrowRight className="h-4 w-4" />
