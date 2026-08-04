@@ -40,6 +40,23 @@ export function SiteFooter() {
 
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-foreground/60">
+            Insights
+          </h3>
+          <ul className="mt-4 space-y-2.5 text-sm text-ink-foreground/80">
+            {INSIGHTS_LINKS.map((item) => (
+              <li key={item.label}>
+                <Link to={item.to} className="transition-colors hover:text-brand">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+
+
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-foreground/60">
             Contact
           </h3>
           <ul className="mt-4 space-y-3 text-sm text-ink-foreground/80">
