@@ -16,8 +16,10 @@ import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
+import { Route as InsightsBlogsRouteImport } from './routes/insights.blogs'
 import { Route as InsightsEconomicReviewRouteImport } from './routes/insights.economic-review'
 import { Route as InsightsMarketAnalysisRouteImport } from './routes/insights.market-analysis'
+import { Route as InsightsRentCheckerRouteImport } from './routes/insights.rent-checker'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,6 +56,11 @@ const InsightsIndexRoute = InsightsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => InsightsRoute,
 } as any)
+const InsightsBlogsRoute = InsightsBlogsRouteImport.update({
+  id: '/blogs',
+  path: '/blogs',
+  getParentRoute: () => InsightsRoute,
+} as any)
 const InsightsEconomicReviewRoute = InsightsEconomicReviewRouteImport.update({
   id: '/economic-review',
   path: '/economic-review',
@@ -64,6 +71,11 @@ const InsightsMarketAnalysisRoute = InsightsMarketAnalysisRouteImport.update({
   path: '/market-analysis',
   getParentRoute: () => InsightsRoute,
 } as any)
+const InsightsRentCheckerRoute = InsightsRentCheckerRouteImport.update({
+  id: '/rent-checker',
+  path: '/rent-checker',
+  getParentRoute: () => InsightsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -72,8 +84,10 @@ export interface FileRoutesByFullPath {
   '/insights': typeof InsightsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/insights/blogs': typeof InsightsBlogsRoute
   '/insights/economic-review': typeof InsightsEconomicReviewRoute
   '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
+  '/insights/rent-checker': typeof InsightsRentCheckerRoute
   '/insights/': typeof InsightsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -82,8 +96,10 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/insights/blogs': typeof InsightsBlogsRoute
   '/insights/economic-review': typeof InsightsEconomicReviewRoute
   '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
+  '/insights/rent-checker': typeof InsightsRentCheckerRoute
   '/insights': typeof InsightsIndexRoute
 }
 export interface FileRoutesById {
@@ -94,8 +110,10 @@ export interface FileRoutesById {
   '/insights': typeof InsightsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/insights/blogs': typeof InsightsBlogsRoute
   '/insights/economic-review': typeof InsightsEconomicReviewRoute
   '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
+  '/insights/rent-checker': typeof InsightsRentCheckerRoute
   '/insights/': typeof InsightsIndexRoute
 }
 export interface FileRouteTypes {
@@ -107,8 +125,10 @@ export interface FileRouteTypes {
     | '/insights'
     | '/portfolio'
     | '/services'
+    | '/insights/blogs'
     | '/insights/economic-review'
     | '/insights/market-analysis'
+    | '/insights/rent-checker'
     | '/insights/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -117,8 +137,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/portfolio'
     | '/services'
+    | '/insights/blogs'
     | '/insights/economic-review'
     | '/insights/market-analysis'
+    | '/insights/rent-checker'
     | '/insights'
   id:
     | '__root__'
@@ -128,8 +150,10 @@ export interface FileRouteTypes {
     | '/insights'
     | '/portfolio'
     | '/services'
+    | '/insights/blogs'
     | '/insights/economic-review'
     | '/insights/market-analysis'
+    | '/insights/rent-checker'
     | '/insights/'
   fileRoutesById: FileRoutesById
 }
@@ -193,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsIndexRouteImport
       parentRoute: typeof InsightsRoute
     }
+    '/insights/blogs': {
+      id: '/insights/blogs'
+      path: '/blogs'
+      fullPath: '/insights/blogs'
+      preLoaderRoute: typeof InsightsBlogsRouteImport
+      parentRoute: typeof InsightsRoute
+    }
     '/insights/economic-review': {
       id: '/insights/economic-review'
       path: '/economic-review'
@@ -207,18 +238,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsMarketAnalysisRouteImport
       parentRoute: typeof InsightsRoute
     }
+    '/insights/rent-checker': {
+      id: '/insights/rent-checker'
+      path: '/rent-checker'
+      fullPath: '/insights/rent-checker'
+      preLoaderRoute: typeof InsightsRentCheckerRouteImport
+      parentRoute: typeof InsightsRoute
+    }
   }
 }
 
 interface InsightsRouteChildren {
+  InsightsBlogsRoute: typeof InsightsBlogsRoute
   InsightsEconomicReviewRoute: typeof InsightsEconomicReviewRoute
   InsightsMarketAnalysisRoute: typeof InsightsMarketAnalysisRoute
+  InsightsRentCheckerRoute: typeof InsightsRentCheckerRoute
   InsightsIndexRoute: typeof InsightsIndexRoute
 }
 
 const InsightsRouteChildren: InsightsRouteChildren = {
+  InsightsBlogsRoute: InsightsBlogsRoute,
   InsightsEconomicReviewRoute: InsightsEconomicReviewRoute,
   InsightsMarketAnalysisRoute: InsightsMarketAnalysisRoute,
+  InsightsRentCheckerRoute: InsightsRentCheckerRoute,
   InsightsIndexRoute: InsightsIndexRoute,
 }
 
