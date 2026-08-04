@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "@/assets/polar-logo.png.asset.json";
 
 const NAV = [
@@ -8,11 +8,33 @@ const NAV = [
   { label: "About", to: "/about" },
   { label: "Services", to: "/services" },
   { label: "Portfolio", to: "/portfolio" },
-  { label: "Contact", to: "/contact" },
+] as const;
+
+export const INSIGHTS_LINKS = [
+  { label: "Economic Review", to: "/insights/economic-review" },
+  { label: "Market Analysis", to: "/insights/market-analysis" },
+  { label: "Rent Checker", to: "/insights/rent-checker" },
+  { label: "Blogs", to: "/insights/blogs" },
 ] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [insightsOpen, setInsightsOpen] = useState(false);
+  const [mobileInsights, setMobileInsights] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const insightsActive = pathname.startsWith("/insights");
+
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setInsightsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
@@ -32,12 +54,68 @@ export function SiteHeader() {
             <Link
               key={item.label}
               to={item.to}
+              activeOptions={{ exact: item.to === "/" }}
               activeProps={{ className: "text-primary" }}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               {item.label}
             </Link>
           ))}
+
+          <div
+            ref={dropdownRef}
+            className="relative"
+            onMouseEnter={() => setInsightsOpen(true)}
+            onMouseLeave={() => setInsightsOpen(false)}
+          >
+            <button
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={insightsOpen}
+              onClick={() => setInsightsOpen((v) => !v)}
+              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-primary ${
+                insightsActive ? "text-primary" : "text-muted-foreground"
+              }`}
+            >
+              Insights
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${insightsOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {insightsOpen && (
+              <div className="absolute left-1/2 top-full w-60 -translate-x-1/2 pt-3">
+                <div className="overflow-hidden rounded-xl border border-border bg-popover p-1.5 shadow-[var(--shadow-card)]">
+                  <Link
+                    to="/insights"
+                    onClick={() => setInsightsOpen(false)}
+                    className="block rounded-lg px-3.5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-secondary hover:text-primary"
+                  >
+                    All Insights
+                  </Link>
+                  {INSIGHTS_LINKS.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.to}
+                      onClick={() => setInsightsOpen(false)}
+                      activeProps={{ className: "text-primary" }}
+                      className="block rounded-lg px-3.5 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link
+            to="/contact"
+            activeProps={{ className: "text-primary" }}
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          >
+            Contact
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -71,11 +149,55 @@ export function SiteHeader() {
               key={item.label}
               to={item.to}
               onClick={() => setOpen(false)}
-              className="block border-b border-border py-3 text-sm font-medium text-foreground last:border-0"
+              className="block border-b border-border py-3 text-sm font-medium text-foreground"
             >
               {item.label}
             </Link>
           ))}
+
+          <div className="border-b border-border">
+            <button
+              type="button"
+              aria-expanded={mobileInsights}
+              onClick={() => setMobileInsights((v) => !v)}
+              className="flex w-full items-center justify-between py-3 text-sm font-medium text-foreground"
+            >
+              Insights
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${mobileInsights ? "rotate-180" : ""}`}
+              />
+            </button>
+            {mobileInsights && (
+              <div className="pb-2 pl-4">
+                <Link
+                  to="/insights"
+                  onClick={() => setOpen(false)}
+                  className="block py-2 text-sm text-muted-foreground"
+                >
+                  All Insights
+                </Link>
+                {INSIGHTS_LINKS.map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    onClick={() => setOpen(false)}
+                    className="block py-2 text-sm text-muted-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link
+            to="/contact"
+            onClick={() => setOpen(false)}
+            className="block border-b border-border py-3 text-sm font-medium text-foreground last:border-0"
+          >
+            Contact
+          </Link>
+
           <Link
             to="/contact"
             onClick={() => setOpen(false)}

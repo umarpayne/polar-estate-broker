@@ -12,8 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as InsightsIndexRouteImport } from './routes/insights.index'
+import { Route as InsightsBlogsRouteImport } from './routes/insights.blogs'
+import { Route as InsightsEconomicReviewRouteImport } from './routes/insights.economic-review'
+import { Route as InsightsMarketAnalysisRouteImport } from './routes/insights.market-analysis'
+import { Route as InsightsRentCheckerRouteImport } from './routes/insights.rent-checker'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,6 +36,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
@@ -40,13 +51,44 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => InsightsRoute,
+} as any)
+const InsightsBlogsRoute = InsightsBlogsRouteImport.update({
+  id: '/blogs',
+  path: '/blogs',
+  getParentRoute: () => InsightsRoute,
+} as any)
+const InsightsEconomicReviewRoute = InsightsEconomicReviewRouteImport.update({
+  id: '/economic-review',
+  path: '/economic-review',
+  getParentRoute: () => InsightsRoute,
+} as any)
+const InsightsMarketAnalysisRoute = InsightsMarketAnalysisRouteImport.update({
+  id: '/market-analysis',
+  path: '/market-analysis',
+  getParentRoute: () => InsightsRoute,
+} as any)
+const InsightsRentCheckerRoute = InsightsRentCheckerRouteImport.update({
+  id: '/rent-checker',
+  path: '/rent-checker',
+  getParentRoute: () => InsightsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/insights': typeof InsightsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/insights/blogs': typeof InsightsBlogsRoute
+  '/insights/economic-review': typeof InsightsEconomicReviewRoute
+  '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
+  '/insights/rent-checker': typeof InsightsRentCheckerRoute
+  '/insights/': typeof InsightsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,27 +96,72 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/insights/blogs': typeof InsightsBlogsRoute
+  '/insights/economic-review': typeof InsightsEconomicReviewRoute
+  '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
+  '/insights/rent-checker': typeof InsightsRentCheckerRoute
+  '/insights': typeof InsightsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/insights': typeof InsightsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/insights/blogs': typeof InsightsBlogsRoute
+  '/insights/economic-review': typeof InsightsEconomicReviewRoute
+  '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
+  '/insights/rent-checker': typeof InsightsRentCheckerRoute
+  '/insights/': typeof InsightsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/portfolio' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/insights'
+    | '/portfolio'
+    | '/services'
+    | '/insights/blogs'
+    | '/insights/economic-review'
+    | '/insights/market-analysis'
+    | '/insights/rent-checker'
+    | '/insights/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/portfolio' | '/services'
-  id: '__root__' | '/' | '/about' | '/contact' | '/portfolio' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/portfolio'
+    | '/services'
+    | '/insights/blogs'
+    | '/insights/economic-review'
+    | '/insights/market-analysis'
+    | '/insights/rent-checker'
+    | '/insights'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/insights'
+    | '/portfolio'
+    | '/services'
+    | '/insights/blogs'
+    | '/insights/economic-review'
+    | '/insights/market-analysis'
+    | '/insights/rent-checker'
+    | '/insights/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  InsightsRoute: typeof InsightsRouteWithChildren
   PortfolioRoute: typeof PortfolioRoute
   ServicesRoute: typeof ServicesRoute
 }
@@ -102,6 +189,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
@@ -116,26 +210,72 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/insights/': {
+      id: '/insights/'
+      path: '/'
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/insights/blogs': {
+      id: '/insights/blogs'
+      path: '/blogs'
+      fullPath: '/insights/blogs'
+      preLoaderRoute: typeof InsightsBlogsRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/insights/economic-review': {
+      id: '/insights/economic-review'
+      path: '/economic-review'
+      fullPath: '/insights/economic-review'
+      preLoaderRoute: typeof InsightsEconomicReviewRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/insights/market-analysis': {
+      id: '/insights/market-analysis'
+      path: '/market-analysis'
+      fullPath: '/insights/market-analysis'
+      preLoaderRoute: typeof InsightsMarketAnalysisRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/insights/rent-checker': {
+      id: '/insights/rent-checker'
+      path: '/rent-checker'
+      fullPath: '/insights/rent-checker'
+      preLoaderRoute: typeof InsightsRentCheckerRouteImport
+      parentRoute: typeof InsightsRoute
+    }
   }
 }
+
+interface InsightsRouteChildren {
+  InsightsBlogsRoute: typeof InsightsBlogsRoute
+  InsightsEconomicReviewRoute: typeof InsightsEconomicReviewRoute
+  InsightsMarketAnalysisRoute: typeof InsightsMarketAnalysisRoute
+  InsightsRentCheckerRoute: typeof InsightsRentCheckerRoute
+  InsightsIndexRoute: typeof InsightsIndexRoute
+}
+
+const InsightsRouteChildren: InsightsRouteChildren = {
+  InsightsBlogsRoute: InsightsBlogsRoute,
+  InsightsEconomicReviewRoute: InsightsEconomicReviewRoute,
+  InsightsMarketAnalysisRoute: InsightsMarketAnalysisRoute,
+  InsightsRentCheckerRoute: InsightsRentCheckerRoute,
+  InsightsIndexRoute: InsightsIndexRoute,
+}
+
+const InsightsRouteWithChildren = InsightsRoute._addFileChildren(
+  InsightsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  InsightsRoute: InsightsRouteWithChildren,
   PortfolioRoute: PortfolioRoute,
   ServicesRoute: ServicesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

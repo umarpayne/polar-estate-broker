@@ -1,10 +1,13 @@
 import { Mail, MapPin, Phone } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import logo from "@/assets/polar-logo.png.asset.json";
+import { INSIGHTS_LINKS } from "@/components/site-header";
 
 export function SiteFooter() {
   return (
     <footer className="surface-ink">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
+
         <div>
           <div className="inline-flex rounded-lg bg-background px-3 py-2">
             <img
@@ -34,6 +37,23 @@ export function SiteFooter() {
             <li>Land &amp; Development Advisory</li>
           </ul>
         </div>
+
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-foreground/60">
+            Insights
+          </h3>
+          <ul className="mt-4 space-y-2.5 text-sm text-ink-foreground/80">
+            {INSIGHTS_LINKS.map((item) => (
+              <li key={item.label}>
+                <Link to={item.to} className="transition-colors hover:text-brand">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+
 
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-ink-foreground/60">
