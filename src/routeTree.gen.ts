@@ -20,6 +20,7 @@ import { Route as InsightsBlogsRouteImport } from './routes/insights.blogs'
 import { Route as InsightsEconomicReviewRouteImport } from './routes/insights.economic-review'
 import { Route as InsightsMarketAnalysisRouteImport } from './routes/insights.market-analysis'
 import { Route as InsightsRentCheckerRouteImport } from './routes/insights.rent-checker'
+import { Route as InsightsBlogsSlugRouteImport } from './routes/insights.blogs.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -76,6 +77,11 @@ const InsightsRentCheckerRoute = InsightsRentCheckerRouteImport.update({
   path: '/rent-checker',
   getParentRoute: () => InsightsRoute,
 } as any)
+const InsightsBlogsSlugRoute = InsightsBlogsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => InsightsBlogsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -84,11 +90,12 @@ export interface FileRoutesByFullPath {
   '/insights': typeof InsightsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
-  '/insights/blogs': typeof InsightsBlogsRoute
+  '/insights/blogs': typeof InsightsBlogsRouteWithChildren
   '/insights/economic-review': typeof InsightsEconomicReviewRoute
   '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
   '/insights/rent-checker': typeof InsightsRentCheckerRoute
   '/insights/': typeof InsightsIndexRoute
+  '/insights/blogs/$slug': typeof InsightsBlogsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -96,11 +103,12 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
-  '/insights/blogs': typeof InsightsBlogsRoute
+  '/insights/blogs': typeof InsightsBlogsRouteWithChildren
   '/insights/economic-review': typeof InsightsEconomicReviewRoute
   '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
   '/insights/rent-checker': typeof InsightsRentCheckerRoute
   '/insights': typeof InsightsIndexRoute
+  '/insights/blogs/$slug': typeof InsightsBlogsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -110,11 +118,12 @@ export interface FileRoutesById {
   '/insights': typeof InsightsRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
-  '/insights/blogs': typeof InsightsBlogsRoute
+  '/insights/blogs': typeof InsightsBlogsRouteWithChildren
   '/insights/economic-review': typeof InsightsEconomicReviewRoute
   '/insights/market-analysis': typeof InsightsMarketAnalysisRoute
   '/insights/rent-checker': typeof InsightsRentCheckerRoute
   '/insights/': typeof InsightsIndexRoute
+  '/insights/blogs/$slug': typeof InsightsBlogsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/insights/market-analysis'
     | '/insights/rent-checker'
     | '/insights/'
+    | '/insights/blogs/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/insights/market-analysis'
     | '/insights/rent-checker'
     | '/insights'
+    | '/insights/blogs/$slug'
   id:
     | '__root__'
     | '/'
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/insights/market-analysis'
     | '/insights/rent-checker'
     | '/insights/'
+    | '/insights/blogs/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -245,11 +257,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRentCheckerRouteImport
       parentRoute: typeof InsightsRoute
     }
+    '/insights/blogs/$slug': {
+      id: '/insights/blogs/$slug'
+      path: '/$slug'
+      fullPath: '/insights/blogs/$slug'
+      preLoaderRoute: typeof InsightsBlogsSlugRouteImport
+      parentRoute: typeof InsightsBlogsRoute
+    }
   }
 }
 
+interface InsightsBlogsRouteChildren {
+  InsightsBlogsSlugRoute: typeof InsightsBlogsSlugRoute
+}
+
+const InsightsBlogsRouteChildren: InsightsBlogsRouteChildren = {
+  InsightsBlogsSlugRoute: InsightsBlogsSlugRoute,
+}
+
+const InsightsBlogsRouteWithChildren = InsightsBlogsRoute._addFileChildren(
+  InsightsBlogsRouteChildren,
+)
+
 interface InsightsRouteChildren {
-  InsightsBlogsRoute: typeof InsightsBlogsRoute
+  InsightsBlogsRoute: typeof InsightsBlogsRouteWithChildren
   InsightsEconomicReviewRoute: typeof InsightsEconomicReviewRoute
   InsightsMarketAnalysisRoute: typeof InsightsMarketAnalysisRoute
   InsightsRentCheckerRoute: typeof InsightsRentCheckerRoute
@@ -257,7 +288,7 @@ interface InsightsRouteChildren {
 }
 
 const InsightsRouteChildren: InsightsRouteChildren = {
-  InsightsBlogsRoute: InsightsBlogsRoute,
+  InsightsBlogsRoute: InsightsBlogsRouteWithChildren,
   InsightsEconomicReviewRoute: InsightsEconomicReviewRoute,
   InsightsMarketAnalysisRoute: InsightsMarketAnalysisRoute,
   InsightsRentCheckerRoute: InsightsRentCheckerRoute,

@@ -104,7 +104,7 @@ function BlogPostPage() {
             {post.excerpt}
           </p>
           <div className="mt-6 space-y-6">
-            {post.body.map((para) => (
+            {post.body.map((para: string) => (
               <p key={para} className="text-base leading-relaxed text-muted-foreground">
                 {para}
               </p>
