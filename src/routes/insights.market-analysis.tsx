@@ -98,7 +98,8 @@ function MarketAnalysisPage() {
             <table className="w-full min-w-[720px] border-collapse text-left text-sm">
               <thead className="bg-secondary">
                 <tr>
-                  <th className="px-5 py-4 font-semibold text-foreground">Location</th>
+                  <th className="px-5 py-4 font-semibold text-foreground">Local Govt Area</th>
+                  <th className="px-5 py-4 font-semibold text-foreground">City / District</th>
                   <th className="px-5 py-4 font-semibold text-foreground">Median Price</th>
                   <th className="px-5 py-4 font-semibold text-foreground">Gross Yield</th>
                   <th className="px-5 py-4 font-semibold text-foreground">12-Month Change</th>
@@ -107,7 +108,8 @@ function MarketAnalysisPage() {
               </thead>
               <tbody className="bg-card">
                 {LOCATIONS.map((l) => (
-                  <tr key={l.area} className="border-t border-border">
+                  <tr key={`${l.lga}-${l.area}`} className="border-t border-border">
+                    <td className="px-5 py-4 text-muted-foreground">{l.lga}</td>
                     <td className="px-5 py-4 font-medium text-foreground">{l.area}</td>
                     <td className="px-5 py-4 text-muted-foreground">{l.price}</td>
                     <td className="px-5 py-4 text-muted-foreground">{l.yield}</td>
@@ -116,6 +118,7 @@ function MarketAnalysisPage() {
                   </tr>
                 ))}
               </tbody>
+
             </table>
           </div>
         </section>
