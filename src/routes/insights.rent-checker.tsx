@@ -9,10 +9,11 @@ import {
   BEDROOMS,
   COMPARABLES,
   CONDITIONS,
-  LOCATIONS,
+  LGAS,
   PROPERTY_TYPES,
   estimateRent,
   formatNaira,
+  getLga,
   type RentEstimate,
 } from "@/lib/rent-data";
 
