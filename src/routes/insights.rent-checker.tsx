@@ -43,11 +43,14 @@ const selectClass =
   "mt-2 w-full rounded-lg border border-input bg-background px-4 py-3 text-sm text-foreground outline-none focus:border-brand";
 
 function RentCheckerPage() {
-  const [location, setLocation] = useState(LOCATIONS[0].value);
+  const [lga, setLga] = useState(LGAS[0].value);
+  const [district, setDistrict] = useState(LGAS[0].districts[0].value);
   const [propertyType, setPropertyType] = useState(PROPERTY_TYPES[0].value);
   const [bedrooms, setBedrooms] = useState("3");
   const [condition, setCondition] = useState("good");
   const [result, setResult] = useState<RentEstimate | null>(null);
+
+  const districts = getLga(lga).districts;
 
   return (
     <div className="min-h-screen bg-background">
@@ -64,7 +67,9 @@ function RentCheckerPage() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                setResult(estimateRent({ location, propertyType, bedrooms, condition }));
+                setResult(
+                  estimateRent({ lga, district, propertyType, bedrooms, condition }),
+                );
               }}
               className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]"
             >
@@ -75,19 +80,39 @@ function RentCheckerPage() {
 
               <div className="mt-6 grid gap-5 sm:grid-cols-2">
                 <label className="block text-sm font-medium text-foreground">
-                  Location
+                  Local Govt Area
                   <select
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    value={lga}
+                    onChange={(e) => {
+                      const next = e.target.value;
+                      setLga(next);
+                      setDistrict(getLga(next).districts[0].value);
+                    }}
                     className={selectClass}
                   >
-                    {LOCATIONS.map((o) => (
+                    {LGAS.map((o) => (
                       <option key={o.value} value={o.value}>
                         {o.label}
                       </option>
                     ))}
                   </select>
                 </label>
+
+                <label className="block text-sm font-medium text-foreground">
+                  City / District
+                  <select
+                    value={district}
+                    onChange={(e) => setDistrict(e.target.value)}
+                    className={selectClass}
+                  >
+                    {districts.map((o) => (
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
 
                 <label className="block text-sm font-medium text-foreground">
                   Property type
