@@ -28,13 +28,22 @@ export const Route = createFileRoute("/insights/market-analysis")({
 });
 
 const LOCATIONS = [
-  { area: "Central Business District", price: "₦185m", yield: "6.8%", change: "+4.2%", demand: "Corporate lets" },
-  { area: "Waterside / Marina", price: "₦240m", yield: "5.9%", change: "+6.1%", demand: "Luxury owner-occupiers" },
-  { area: "Northgate Suburb", price: "₦96m", yield: "8.4%", change: "+9.0%", demand: "Young families" },
-  { area: "Airport Corridor", price: "₦72m", yield: "9.1%", change: "+11.5%", demand: "Short-let operators" },
-  { area: "Old Town", price: "₦58m", yield: "7.6%", change: "+2.8%", demand: "Value buyers" },
-  { area: "Greenbelt Estates", price: "₦134m", yield: "7.0%", change: "+5.4%", demand: "Diaspora investors" },
+  { lga: "Eti-Osa", area: "Ikoyi", price: "₦450m", yield: "4.6%", change: "+5.8%", demand: "HNI owner-occupiers" },
+  { lga: "Eti-Osa", area: "Victoria Island", price: "₦320m", yield: "5.4%", change: "+6.4%", demand: "Corporate lets" },
+  { lga: "Eti-Osa", area: "Lekki Phase 1", price: "₦185m", yield: "6.2%", change: "+7.9%", demand: "Diaspora investors" },
+  { lga: "Eti-Osa", area: "Ajah", price: "₦85m", yield: "7.8%", change: "+10.2%", demand: "Young families" },
+  { lga: "Ikeja", area: "Ikeja GRA", price: "₦210m", yield: "5.8%", change: "+4.7%", demand: "Corporate & expatriate" },
+  { lga: "Ikeja", area: "Opebi / Allen", price: "₦140m", yield: "6.9%", change: "+4.1%", demand: "Mixed-use occupiers" },
+  { lga: "Ikeja", area: "Ogba", price: "₦72m", yield: "8.3%", change: "+6.6%", demand: "Value buyers" },
+  { lga: "Kosofe", area: "Gbagada", price: "₦125m", yield: "7.1%", change: "+8.4%", demand: "Upgraders" },
+  { lga: "Kosofe", area: "Ogudu GRA", price: "₦98m", yield: "7.6%", change: "+7.2%", demand: "Young families" },
+  { lga: "Kosofe", area: "Ketu Alapere", price: "₦52m", yield: "9.0%", change: "+5.5%", demand: "First-time buyers" },
+  { lga: "Lagos Mainland", area: "Yaba", price: "₦110m", yield: "8.1%", change: "+9.3%", demand: "Students & tech workers" },
+  { lga: "Surulere", area: "Bode Thomas", price: "₦88m", yield: "7.9%", change: "+4.9%", demand: "Mid-market renters" },
+  { lga: "Amuwo-Odofin", area: "Festac Town", price: "₦68m", yield: "8.6%", change: "+5.1%", demand: "Value buyers" },
+  { lga: "Ibeju-Lekki", area: "Lakowe / Eleko", price: "₦45m", yield: "9.4%", change: "+13.7%", demand: "Land & off-plan investors" },
 ];
+
 
 const SEGMENTS = [
   {
