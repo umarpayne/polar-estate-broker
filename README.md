@@ -1,4 +1,4 @@
-# Polar Property Partner
+# Polar Estate Broker
 
 Build me somethings exactly like this: https://kth-group-9zra.vercel.app  but tailored to Polar Estate Broker,  Polar estate Broker is a Real estate and property management firm, service include, Property sales and property portfolios,  Property management, etc
 

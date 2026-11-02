@@ -1,6 +1,6 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/polar-logo.png.asset.json";
+import logo from "@/assets/polar-logo.png";
 import { INSIGHTS_LINKS } from "@/components/site-header";
 
 export function SiteFooter() {
@@ -11,7 +11,7 @@ export function SiteFooter() {
         <div>
           <div className="inline-flex rounded-lg bg-background px-3 py-2">
             <img
-              src={logo.url}
+              src={logo}
               alt="Polar Estate Broker"
               width={540}
               height={140}

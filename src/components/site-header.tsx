@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
-import logo from "@/assets/polar-logo.png.asset.json";
+import logo from "@/assets/polar-logo.png";
 
 const NAV = [
   { label: "Home", to: "/" },
@@ -41,7 +41,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:py-4">
         <Link to="/" className="flex min-w-0 items-center">
           <img
-            src={logo.url}
+            src={logo}
             alt="Polar Estate Broker"
             width={540}
             height={140}
